@@ -10,9 +10,18 @@ from google.protobuf.empty_pb2 import Empty
 
 from cloudstate.event_sourced_context import EventSourcedCommandContext
 from cloudstate.event_sourced_entity import EventSourcedEntity
-from shoppingcart.domain_pb2 import (Cart as DomainCart, LineItem as DomainLineItem, ItemAdded, ItemRemoved)
-from shoppingcart.shoppingcart_pb2 import (Cart, LineItem, AddLineItem, RemoveLineItem)
-from shoppingcart.shoppingcart_pb2 import (_SHOPPINGCART, DESCRIPTOR as FILE_DESCRIPTOR)
+from shoppingcart.persistence.domain_pb2 import Cart as DomainCart
+from shoppingcart.persistence.domain_pb2 import ItemAdded, ItemRemoved
+from shoppingcart.persistence.domain_pb2 import LineItem as DomainLineItem
+from shoppingcart.shoppingcart_pb2 import _SHOPPINGCART
+from shoppingcart.shoppingcart_pb2 import DESCRIPTOR as FILE_DESCRIPTOR
+from shoppingcart.shoppingcart_pb2 import (
+    AddLineItem,
+    Cart,
+    GetShoppingCart,
+    LineItem,
+    RemoveLineItem,
+)
 
 
 @dataclass
@@ -53,7 +62,10 @@ def to_line_item(domain_item):
 
 @entity.snapshot_handler()
 def handle_snapshot(state: ShoppingCartState, domain_cart: DomainCart):
-    state.cart = {domain_item.productId: to_line_item(domain_item) for domain_item in domain_cart.items}
+    state.cart = {
+        domain_item.productId: to_line_item(domain_item)
+        for domain_item in domain_cart.items
+    }
 
 
 @entity.event_handler(ItemAdded)
@@ -73,16 +85,23 @@ def item_removed(state: ShoppingCartState, event: ItemRemoved):
 
 
 @entity.command_handler("GetCart")
-def get_cart(state: ShoppingCartState):
+def get_cart(
+    state: ShoppingCartState, item: GetShoppingCart, ctx: EventSourcedCommandContext
+):
+    print(f"get shopping cart: {item}")
     cart = Cart()
     cart.items.extend(state.cart.values())
+
     return cart
 
 
 @entity.command_handler("AddItem")
 def add_item(item: AddLineItem, ctx: EventSourcedCommandContext):
     if item.quantity <= 0:
-        ctx.fail("Cannot add negative quantity of to item {}".format(item.productId))
+        ctx.fail(
+            f"Cannot add negative quantity of to item {item.product_id} at request "
+            f"{item}"
+        )
     else:
         item_added_event = ItemAdded()
         item_added_event.item.CopyFrom(to_domain_line_item(item))
@@ -91,10 +110,16 @@ def add_item(item: AddLineItem, ctx: EventSourcedCommandContext):
 
 
 @entity.command_handler("RemoveItem")
-def remove_item(state: ShoppingCartState, item: RemoveLineItem, ctx: EventSourcedCommandContext):
+def remove_item(
+    state: ShoppingCartState, item: RemoveLineItem, ctx: EventSourcedCommandContext
+):
     cart = state.cart
     if item.product_id not in cart:
-        ctx.fail("Cannot remove item {} because it is not in the cart.".format(item.productId))
+        ctx.fail(
+            "Cannot remove item {} because it is not in the cart.".format(
+                item.product_id
+            )
+        )
     else:
         item_removed_event = ItemRemoved()
         item_removed_event.productId = item.product_id

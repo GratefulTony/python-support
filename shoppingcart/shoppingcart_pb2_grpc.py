@@ -6,76 +6,124 @@ from shoppingcart import shoppingcart_pb2 as shoppingcart_dot_shoppingcart__pb2
 
 
 class ShoppingCartStub(object):
-  # missing associated documentation comment in .proto file
-  pass
+    """Missing associated documentation comment in .proto file"""
 
-  def __init__(self, channel):
-    """Constructor.
+    def __init__(self, channel):
+        """Constructor.
 
-    Args:
-      channel: A grpc.Channel.
-    """
-    self.AddItem = channel.unary_unary(
-        '/com.example.shoppingcart.ShoppingCart/AddItem',
-        request_serializer=shoppingcart_dot_shoppingcart__pb2.AddLineItem.SerializeToString,
-        response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-        )
-    self.RemoveItem = channel.unary_unary(
-        '/com.example.shoppingcart.ShoppingCart/RemoveItem',
-        request_serializer=shoppingcart_dot_shoppingcart__pb2.RemoveLineItem.SerializeToString,
-        response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-        )
-    self.GetCart = channel.unary_unary(
-        '/com.example.shoppingcart.ShoppingCart/GetCart',
-        request_serializer=shoppingcart_dot_shoppingcart__pb2.GetShoppingCart.SerializeToString,
-        response_deserializer=shoppingcart_dot_shoppingcart__pb2.Cart.FromString,
-        )
+        Args:
+            channel: A grpc.Channel.
+        """
+        self.AddItem = channel.unary_unary(
+                '/com.example.shoppingcart.ShoppingCart/AddItem',
+                request_serializer=shoppingcart_dot_shoppingcart__pb2.AddLineItem.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.RemoveItem = channel.unary_unary(
+                '/com.example.shoppingcart.ShoppingCart/RemoveItem',
+                request_serializer=shoppingcart_dot_shoppingcart__pb2.RemoveLineItem.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.GetCart = channel.unary_unary(
+                '/com.example.shoppingcart.ShoppingCart/GetCart',
+                request_serializer=shoppingcart_dot_shoppingcart__pb2.GetShoppingCart.SerializeToString,
+                response_deserializer=shoppingcart_dot_shoppingcart__pb2.Cart.FromString,
+                )
 
 
 class ShoppingCartServicer(object):
-  # missing associated documentation comment in .proto file
-  pass
+    """Missing associated documentation comment in .proto file"""
 
-  def AddItem(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+    def AddItem(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-  def RemoveItem(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+    def RemoveItem(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
-  def GetCart(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
+    def GetCart(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
 
 def add_ShoppingCartServicer_to_server(servicer, server):
-  rpc_method_handlers = {
-      'AddItem': grpc.unary_unary_rpc_method_handler(
-          servicer.AddItem,
-          request_deserializer=shoppingcart_dot_shoppingcart__pb2.AddLineItem.FromString,
-          response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-      ),
-      'RemoveItem': grpc.unary_unary_rpc_method_handler(
-          servicer.RemoveItem,
-          request_deserializer=shoppingcart_dot_shoppingcart__pb2.RemoveLineItem.FromString,
-          response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-      ),
-      'GetCart': grpc.unary_unary_rpc_method_handler(
-          servicer.GetCart,
-          request_deserializer=shoppingcart_dot_shoppingcart__pb2.GetShoppingCart.FromString,
-          response_serializer=shoppingcart_dot_shoppingcart__pb2.Cart.SerializeToString,
-      ),
-  }
-  generic_handler = grpc.method_handlers_generic_handler(
-      'com.example.shoppingcart.ShoppingCart', rpc_method_handlers)
-  server.add_generic_rpc_handlers((generic_handler,))
+    rpc_method_handlers = {
+            'AddItem': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddItem,
+                    request_deserializer=shoppingcart_dot_shoppingcart__pb2.AddLineItem.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'RemoveItem': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveItem,
+                    request_deserializer=shoppingcart_dot_shoppingcart__pb2.RemoveLineItem.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetCart': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCart,
+                    request_deserializer=shoppingcart_dot_shoppingcart__pb2.GetShoppingCart.FromString,
+                    response_serializer=shoppingcart_dot_shoppingcart__pb2.Cart.SerializeToString,
+            ),
+    }
+    generic_handler = grpc.method_handlers_generic_handler(
+            'com.example.shoppingcart.ShoppingCart', rpc_method_handlers)
+    server.add_generic_rpc_handlers((generic_handler,))
+
+
+ # This class is part of an EXPERIMENTAL API.
+class ShoppingCart(object):
+    """Missing associated documentation comment in .proto file"""
+
+    @staticmethod
+    def AddItem(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/com.example.shoppingcart.ShoppingCart/AddItem',
+            shoppingcart_dot_shoppingcart__pb2.AddLineItem.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RemoveItem(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/com.example.shoppingcart.ShoppingCart/RemoveItem',
+            shoppingcart_dot_shoppingcart__pb2.RemoveLineItem.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetCart(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/com.example.shoppingcart.ShoppingCart/GetCart',
+            shoppingcart_dot_shoppingcart__pb2.GetShoppingCart.SerializeToString,
+            shoppingcart_dot_shoppingcart__pb2.Cart.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
