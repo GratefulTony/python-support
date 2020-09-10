@@ -54,7 +54,6 @@ setup(
     long_description=open("Description.md", "r").read(),
     long_description_content_type="text/markdown",
     zip_safe=False,
-    # include_package_data = True,
     scripts=["scripts/compile-protobuf.sh", "scripts/fetch-cloudstate-pb.sh"],
     cmdclass={
         "build_py": FetchBuildProtosCommand,
