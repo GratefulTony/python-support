@@ -17,7 +17,7 @@ COPY ./Description.md /python-support/Description.md
 
 RUN pip install . -vvv
 
-WORKDIR ~
+WORKDIR /
 ENTRYPOINT ["python", "-m", "example.tck_services"]
 
 EXPOSE 8080
